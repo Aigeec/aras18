@@ -1,0 +1,22 @@
+{
+  "twitter": {
+    "topics": [
+      "áras18",
+      "aras18",
+      "aras2018"
+    ],
+    "follow": [
+      "@md_higgins",
+      "@CaseyPeterJ",
+      "@GavinDuffy",
+      "@SenJoanFreeman",
+      "@seangallagher1",
+      "@sarahlmulliganforPresident",
+      "@gemmaod1",
+      "@SharkeyArtist"
+    ]
+  },
+  "mongo": {
+    "url": "mongodb://localhost:27017"
+  }
+}
