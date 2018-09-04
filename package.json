@@ -1,7 +1,7 @@
 {
   "title": "#ARAS18",
   "name": "aras18",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Twitter analysis Site on the Irish Presidential Election 2018",
   "scripts": {
     "webpack": "webpack",
