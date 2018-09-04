@@ -11,6 +11,9 @@ if (window.location.protocol === 'https:') {
   wsUrl = wsUrl.replace('ws://', 'wss://')
 }
 
+const HOME = '/'
+const RECENT_TWEETS = '/recent-tweets'
+
 export default class App extends Component {
   constructor () {
     super()
@@ -45,7 +48,7 @@ export default class App extends Component {
   handleRoute (e) {
     setTimeout(() => {
       switch (e.url) {
-        case '/previous-tweets':
+        case RECENT_TWEETS:
           this.setState(Object.assign({}, this.state, { routesState: { home: false, previousTweets: true } }))
           break
         default:
@@ -61,14 +64,14 @@ export default class App extends Component {
           <div class='header__background' />
           <div class='nav'>
             <span class='title'>#ARAS 18</span>
-            <Link activeClassName='active' class='link' href='/'>Home</Link>
-            <Link activeClassName='active' class='link' href='/previous-tweets'>Recent Tweets</Link>
+            <Link activeClassName='active' class='link' href={HOME}>Home</Link>
+            <Link activeClassName='active' class='link' href={RECENT_TWEETS}>Recent Tweets</Link>
           </div>
         </div>
         <div class='content'>
           <Router onChange={this.handleRoute.bind(this)}>
-            <Home path='/' default in={routesState.home} tweet={tweets[0]} />
-            <PreviousTweets path='/previous-tweets' in={routesState.previousTweets} tweets={tweets.slice(1)} />
+            <Home path={HOME} default in={routesState.home} tweet={tweets[0]} />
+            <PreviousTweets path={RECENT_TWEETS} in={routesState.previousTweets} tweets={tweets.slice(1)} />
           </Router>
         </div>
       </div>
