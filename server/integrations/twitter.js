@@ -50,9 +50,21 @@ function persistTweet (enrichedTweet) {
       .insertOne(enrichedTweet).then(() => enrichedTweet))
 }
 
+function persistTweetUserMentions (enrichedTweet) {
+  const userMentions = enrichedTweet.tweet.entities && enrichedTweet.tweet.entities.user_mentions
+  if (userMentions && userMentions.length > 0) {
+    return mongodb.connect.then((db) =>
+      db.collection('userMentions')
+        .insertMany(userMentions).then(() => enrichedTweet))
+  } else {
+    return Promise.resolve(enrichedTweet)
+  }
+}
+
 function handleTweet (tweet) {
   lastTweet = getTweetSentiment(tweet)
     .then(persistTweet)
+    .then(persistTweetUserMentions)
     .then(transformTweet)
     .then((transformedTweet) => {
       listeners.forEach((listener) => listener(transformedTweet))
