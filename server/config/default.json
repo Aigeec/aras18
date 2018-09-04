@@ -1,5 +1,6 @@
 {  
   "mongo": {
     "dbName": "aras18"
-  }
+  },
+  "analyseSentiment": true
 }

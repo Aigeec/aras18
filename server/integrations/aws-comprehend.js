@@ -10,10 +10,14 @@ module.exports.detectSentiment = (text) => {
     LanguageCode: 'en',
     Text: text
   }
-  return new Promise((resolve, reject) => {
-    comprehend.detectSentiment(params, function (err, data) {
-      if (err) reject(err) // an error occurred
-      else resolve(data) // successful response
+  if (config.get('analyseSentiment')) {
+    return new Promise((resolve, reject) => {
+      comprehend.detectSentiment(params, function (err, data) {
+        if (err) reject(err) // an error occurred
+        else resolve(data) // successful response
+      })
     })
-  })
+  } else {
+    return Promise.resolve({})
+  }
 }
