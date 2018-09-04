@@ -1,0 +1,43 @@
+.home {
+  margin-top: calc(100vh / 10);
+  &__title {
+    font-size: 4em;
+  }
+  &__tweet {
+    width: 60%;
+    margin: auto;
+    font-size: 2em;    
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .home {
+    margin-top: 0;
+    &__title {
+      font-size: 1.5em;
+    }
+    &__tweet {
+      width: 90%;
+      margin: auto;
+      font-size: 1em;    
+    }
+  }
+}
+
+.fade {
+  .brand-heading {
+    transition: transform 1s;
+  }
+}
+
+.fade.hide {
+  .brand-heading {
+    transform: translateY(-100px)
+  }
+}
+
+.fade.show {
+  .brand-heading {
+    transform: translateY(0)
+  }
+}

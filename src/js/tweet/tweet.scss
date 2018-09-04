@@ -1,0 +1,46 @@
+.tweet {
+  position: relative;
+  display: flex;
+  padding: 15px 0;
+  padding-right: 15px;
+  &__background {
+    border-radius: 25px;
+    background-color: black;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    opacity: 0.45;
+  }
+  &__body {
+    width: calc(100% - 68px);
+    z-index: 999;
+  }
+  &__author__image {
+    position: relative;
+    width: 68px;
+    >img {
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+  }
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    >span {
+      padding-right: 20px;
+    }
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+  &__content {
+    text-align: left;
+  }
+}
