@@ -32,8 +32,8 @@ function transformTweet (enrichedTweet) {
 function getTweetSentiment (tweet) {
   return awsComprehend.detectSentiment(tweet.text).then((sentiment) => {
     return {
-      id: tweet.id,
-      created_at: Date.parse(tweet.created_at),
+      id: tweet.id_str,
+      created_at: new Date(tweet.created_at),
       tweet,
       sentiment
     }
@@ -96,7 +96,7 @@ function startStream () {
   })
 
   stream.on('end', () => {
-    log.warn('Titter stream ended')
+    log.warn('Twitter stream ended')
     streamBackoff.backoff()
   })
 }
