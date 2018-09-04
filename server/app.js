@@ -8,6 +8,6 @@ const publicPath = path.join(__dirname, 'public')
 
 app.use(compression())
 app.use(express.static(publicPath))
-app.use(fallback('index.html', { publicPath }))
+app.use(fallback('index.html', { root: publicPath }))
 
 module.exports = app
