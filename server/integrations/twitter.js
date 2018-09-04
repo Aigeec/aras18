@@ -19,7 +19,7 @@ var client = new Twitter(config.get('twitter.auth'))
 
 function transformTweet (enrichedTweet) {
   return JSON.stringify({
-    text: twitterText.autoLink(twitterText.htmlEscape(enrichedTweet.tweet.text)),
+    text: twitterText.autoLink(twitterText.htmlEscape(getTweetText(enrichedTweet.tweet))),
     created_at: enrichedTweet.tweet.created_at,
     displayName: enrichedTweet.tweet.user.name,
     username: enrichedTweet.tweet.user.screen_name,
@@ -27,6 +27,10 @@ function transformTweet (enrichedTweet) {
     sentiment: enrichedTweet.sentiment,
     retweeted: enrichedTweet.tweet.retweeted
   })
+}
+
+function getTweetText (tweet) {
+  return tweet.truncated && tweet.extended_tweet ? tweet.extended_tweet.full_text : tweet.text
 }
 
 function getTweetSentiment (tweet) {
