@@ -7,8 +7,12 @@ const fallback = require('express-history-api-fallback')
 
 const publicPath = path.join(__dirname, 'public')
 
+const api = require('./api')
+
 app.use(helmet())
 app.use(compression())
+
+app.use('/api', api)
 
 app.use(express.static(publicPath), { maxAge: '30 days' })
 app.use(fallback('index.html', { root: publicPath }))
