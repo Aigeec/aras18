@@ -2,10 +2,12 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const PurifyCSSPlugin = require('purifycss-webpack')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const path = require('path')
 const glob = require('glob-all')
 
-const BUILD = process.env.npm_lifecycle_event === 'build'
+const BUILD = process.env.npm_lifecycle_event === 'build' || process.env.npm_lifecycle_event === 'webpack'
 
 const config = {
   optimization: {
@@ -16,14 +18,17 @@ const config = {
           chunks: 'initial'
         }
       }
-    }
+    },
+    minimizer: [
+    ]
   },
   entry: './src/entry.js',
   output: {
-    filename: 'bundle.js',
+    filename: '[contenthash].bundle.js',
     path: path.resolve(__dirname, './dist/public')
   },
-  mode: 'development',
+  mode: BUILD ? 'production' : 'development',
+  devtool: BUILD ? 'source-map' : 'inline-source-map',
   module: {
     rules: [{
       test: /\.js$/,
@@ -75,8 +80,7 @@ const config = {
 
   plugins: [
     new ExtractCssChunks({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
+      filename: '[contenthash].main.css',
       hot: !BUILD
     }),
     new HtmlWebpackPlugin({ template: './src/index.html' }),
@@ -100,6 +104,18 @@ const config = {
 }
 
 module.exports = config
+
+if (BUILD) {
+  config.optimization
+    .minimizer.push(new UglifyJsPlugin({
+      cache: true,
+      parallel: true,
+      sourceMap: true // set to true if you want JS source maps
+    }))
+  config.optimization
+    .minimizer.push(
+      new OptimizeCSSAssetsPlugin({}))
+}
 
 if (!BUILD) {
   config.plugins.push(new BundleAnalyzerPlugin())

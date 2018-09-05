@@ -7,7 +7,7 @@ const fallback = require('express-history-api-fallback')
 const publicPath = path.join(__dirname, 'public')
 
 app.use(compression())
-app.use(express.static(publicPath))
+app.use(express.static(publicPath), { maxAge: '30 days' })
 app.use(fallback('index.html', { publicPath }))
 
 module.exports = app
