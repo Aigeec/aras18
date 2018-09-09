@@ -6,7 +6,20 @@
   &__tweet {
     width: 60%;
     margin: auto;
-    font-size: 2em;    
+    font-size: 2em;
+  }
+
+  &.fade-enter {
+    .home__title {
+      transform: translateY(-100px);
+    }
+  }
+
+  &.fade-enter-active {
+    .home__title {
+      transform: translateY(0);
+      transition: all 300ms ease-out;
+    }
   }
 }
 
@@ -19,25 +32,7 @@
     &__tweet {
       width: 90%;
       margin: auto;
-      font-size: 1em;    
+      font-size: 1em;
     }
-  }
-}
-
-.fade {
-  .brand-heading {
-    transition: transform 1s;
-  }
-}
-
-.fade.hide {
-  .brand-heading {
-    transform: translateY(-100px)
-  }
-}
-
-.fade.show {
-  .brand-heading {
-    transform: translateY(0)
   }
 }

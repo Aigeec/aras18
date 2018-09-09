@@ -1,5 +1,5 @@
 .previous-tweets {
-  height: 100%;
+  height: calc(100vh - 95px);
   &__list {
     width: 60%;
     height: 80%;
@@ -19,7 +19,7 @@
 
 @media only screen and (max-width: 600px) {
   .previous-tweets {
-    height: 100%;
+    height: calc(100vh - 95px);
     &__title {
       font-size: 1.5em;
     }
