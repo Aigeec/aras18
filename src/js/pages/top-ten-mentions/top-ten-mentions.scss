@@ -1,0 +1,44 @@
+.top-ten-mentions {
+  width: 50%;
+  margin: auto;
+  &__users {
+    position: relative;
+    padding: 20px;
+  }
+  &__background {
+    border-radius: 25px;
+    background-color: black;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.45;
+    z-index: -1;
+  }
+  &__user {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    font-size: 2.5em;
+    &__count {
+      margin-left: 15px;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .top-ten-mentions {
+    width: 85%;
+    &__user {
+      margin: auto;
+      font-size: 1.75em;
+      &__name {
+        text-align: left;
+      }
+      &__count {
+        margin-left: 15px;
+      }
+    }
+  }
+}

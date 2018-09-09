@@ -7,6 +7,7 @@ import { TransitionGroup } from 'react-transition-group'
 import './app.scss'
 import { Home } from './pages/home/home'
 import { PreviousTweets } from './pages/previous-tweets/previous-tweets'
+import { TopTenMentions } from './pages/top-ten-mentions/top-ten-mentions'
 
 let wsUrl = 'ws://WEB_SOCKET_URL'
 if (window.location.protocol === 'https:') {
@@ -15,6 +16,7 @@ if (window.location.protocol === 'https:') {
 
 const HOME = '/'
 const RECENT_TWEETS = '/recent-tweets'
+const TOP_TEN_MENTIONS = '/top-ten-mentions'
 
 export default class App extends Component {
   constructor () {
@@ -68,6 +70,9 @@ export default class App extends Component {
             <Link activeClassName='active' class='link' href={RECENT_TWEETS}>
               Recent Tweets
             </Link>
+            <Link activeClassName='active' class='link' href={TOP_TEN_MENTIONS}>
+              Top Ten Mentions
+            </Link>
           </div>
         </div>
         <div class='content'>
@@ -79,6 +84,7 @@ export default class App extends Component {
                 in={show}
                 tweets={tweets.slice(1)}
               />
+              <TopTenMentions path={TOP_TEN_MENTIONS} in={show} />
             </Router>
           </TransitionGroup>
         </div>
