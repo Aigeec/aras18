@@ -87,7 +87,7 @@
   },
   "lint-staged": {
     "linters": {
-      "src/**/*.js": [
+      "src/**/*.{js,scss}": [
         "node ./node_modules/prettier-standard/src/index",
         "git add"
       ]
