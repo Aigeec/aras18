@@ -1,7 +1,7 @@
 {
   "title": "#ARAS18",
   "name": "aras18",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Twitter analysis Site on the Irish Presidential Election 2018",
   "scripts": {
     "precommit": "node ./node_modules/lint-staged/index",
