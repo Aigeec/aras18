@@ -18,7 +18,7 @@ log.debug(`Following: ${follow.join(',')}`)
 var client = new Twitter(config.get('twitter.auth'))
 
 function transformTweet (enrichedTweet) {
-  return JSON.stringify({
+  return {
     text: twitterText.autoLink(
       twitterText.htmlEscape(getTweetText(enrichedTweet.tweet))
     ),
@@ -28,7 +28,7 @@ function transformTweet (enrichedTweet) {
     userProfilePic: enrichedTweet.tweet.user.profile_image_url_https,
     sentiment: enrichedTweet.sentiment,
     retweeted: enrichedTweet.tweet.retweeted
-  })
+  }
 }
 
 function getTweetText (tweet) {
@@ -76,6 +76,7 @@ function handleTweet (tweet) {
     .then(persistUserMentions)
     .then(transformTweet)
     .then(transformedTweet => {
+      transformedTweet = JSON.stringify(transformedTweet)
       listeners.forEach(listener => listener(transformedTweet))
       return transformedTweet
     })
@@ -150,3 +151,5 @@ module.exports.addListener = listener => {
 }
 
 module.exports.getLatestTweet = () => lastTweet
+
+module.exports.transformTweet = transformTweet
