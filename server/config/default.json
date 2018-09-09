@@ -1,6 +1,7 @@
-{  
+{
   "mongo": {
     "dbName": "aras18"
   },
-  "analyseSentiment": true
+  "analyseSentiment": true,
+  "useFallback": true
 }

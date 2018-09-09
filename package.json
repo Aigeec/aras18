@@ -1,14 +1,16 @@
 {
   "title": "#ARAS18",
   "name": "aras18",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Twitter analysis Site on the Irish Presidential Election 2018",
   "scripts": {
+    "precommit": "node ./node_modules/lint-staged/index",
     "webpack": "webpack",
     "start": "webpack-serve",
     "build": "rm -rf dist && npm run build:node && webpack --mode production && cd ./dist && npm pack",
     "wscat": "wscat -c ws://localhost:6001",
     "lint": "standard",
+    "format": "prettier-standard '+(src|server)/**/*.+(js|scss)'",
     "build:node": "cp server -r ./dist && cp package.json ./dist && cp .gitignore ./dist",
     "release": "standard-version"
   },
@@ -23,6 +25,7 @@
     "express": "^4.16.3",
     "express-history-api-fallback": "^2.2.1",
     "glob-all": "^3.1.0",
+    "helmet": "^3.13.0",
     "mongodb": "^3.1.4",
     "timeago.js": "^3.0.2",
     "twitter": "^1.7.1",
@@ -39,20 +42,23 @@
     "dompurify": "^1.0.7",
     "extract-css-chunks-webpack-plugin": "^3.0.11",
     "file-loader": "^2.0.0",
-    "font-awesome": "^4.7.0",
     "html-webpack-plugin": "^3.2.0",
     "http-proxy-middleware": "^0.19.0",
+    "husky": "^0.14.3",
     "imagemin": "^6.0.0",
     "img-loader": "^3.0.0",
     "koa-connect": "^2.0.1",
     "koa-router": "^7.4.0",
     "koa-websocket": "^5.0.1",
+    "lint-staged": "^7.2.2",
     "node-sass": "^4.9.3",
     "nodemon": "^1.18.4",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "preact": "^8.3.1",
     "preact-compat": "^3.18.4",
     "preact-material-components": "^1.5.1",
     "preact-router": "^2.6.1",
+    "prettier-standard": "^8.0.1",
     "purify-css": "^1.2.5",
     "purifycss-webpack": "^0.7.0",
     "react": "^16.4.2",
@@ -64,6 +70,7 @@
     "string-replace-loader": "^2.1.1",
     "style-loader": "^0.23.0",
     "tunnel-agent": "^0.6.0",
+    "uglifyjs-webpack-plugin": "^1.3.0",
     "webpack": "^4.17.1",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.1.0",
@@ -74,7 +81,16 @@
   "standard": {
     "globals": [
       "WebSocket",
-      "$"
+      "$",
+      "fetch"
     ]
+  },
+  "lint-staged": {
+    "linters": {
+      "src/**/*.{js,scss}": [
+        "node ./node_modules/prettier-standard/src/index",
+        "git add"
+      ]
+    }
   }
 }

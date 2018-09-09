@@ -2,10 +2,12 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const PurifyCSSPlugin = require('purifycss-webpack')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const path = require('path')
 const glob = require('glob-all')
 
-const BUILD = process.env.npm_lifecycle_event === 'build'
+const BUILD = process.env.npm_lifecycle_event === 'build' || process.env.npm_lifecycle_event === 'webpack'
 
 const config = {
   optimization: {
@@ -16,21 +18,24 @@ const config = {
           chunks: 'initial'
         }
       }
-    }
+    },
+    minimizer: [
+    ]
   },
   entry: './src/entry.js',
   output: {
-    filename: 'bundle.js',
+    filename: BUILD ? '[contenthash].bundle.js' : 'bundle.js',
     path: path.resolve(__dirname, './dist/public')
   },
-  mode: 'development',
+  mode: BUILD ? 'production' : 'development',
+  devtool: BUILD ? 'source-map' : 'inline-source-map',
   module: {
     rules: [{
       test: /\.js$/,
       loader: 'string-replace-loader',
       options: {
         search: 'WEB_SOCKET_URL',
-        replace: BUILD ? 'aras18.com' : 'localhost:6001'
+        replace: BUILD ? 'aras18.com' : 'localhost:6001/ws'
       }
     },
     {
@@ -75,8 +80,7 @@ const config = {
 
   plugins: [
     new ExtractCssChunks({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
+      filename: BUILD ? '[contenthash].main.css' : 'bundle.css',
       hot: !BUILD
     }),
     new HtmlWebpackPlugin({ template: './src/index.html' }),
@@ -86,7 +90,7 @@ const config = {
         path.join(__dirname, './src/js/**/*.js')
       ]),
       purifyOptions: {
-        whitelist: ['liquid*']
+        whitelist: ['*fade*']
       }
     })
   ],
@@ -101,15 +105,24 @@ const config = {
 
 module.exports = config
 
+if (BUILD) {
+  config.optimization
+    .minimizer.push(new UglifyJsPlugin({
+      cache: true,
+      parallel: true,
+      sourceMap: true // set to true if you want JS source maps
+    }))
+  config.optimization
+    .minimizer.push(
+      new OptimizeCSSAssetsPlugin({}))
+}
+
 if (!BUILD) {
   config.plugins.push(new BundleAnalyzerPlugin())
 
   const proxy = require('http-proxy-middleware')
   const convert = require('koa-connect')
   const history = require('connect-history-api-fallback')
-  const Router = require('koa-router')
-
-  const router = new Router()
 
   const proxyOptions = {
     target: 'ws://localhost:6001',
@@ -117,13 +130,11 @@ if (!BUILD) {
     ws: true
   }
 
-  router.get('*', convert(proxy(proxyOptions)))
   module.exports.serve = {
     logLevel: 'debug',
     add: (app, middleware, options) => {
-      middleware.webpack().then(() => {
-        app.use(router.routes())
-      })
+      app.use(convert(proxy('/ws', proxyOptions)))
+      app.use(convert(proxy('/api', { target: 'http://localhost:6001' })))
       app.use(convert(history({})))
     }
   }

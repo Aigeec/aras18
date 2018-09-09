@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/Aigeec/aras18/compare/v0.2.1...v0.3.0) (2018-09-09)
+
+
+### Features
+
+* **recent-tweets:** get recent tweets on load ([acc05cc](https://github.com/Aigeec/aras18/commit/acc05cc))
+* **server:** add helmet protections ([555f5b9](https://github.com/Aigeec/aras18/commit/555f5b9))
+* **server:** api to get recent tweets ([832b4ba](https://github.com/Aigeec/aras18/commit/832b4ba))
+* **top-ten-mentions:** add api ([87fecf5](https://github.com/Aigeec/aras18/commit/87fecf5))
+* **top-ten-mentions:** page to display the most frequently mentioned users ([b7748eb](https://github.com/Aigeec/aras18/commit/b7748eb))
+* **twitter:** persist user mentions ([88b8921](https://github.com/Aigeec/aras18/commit/88b8921))
+
+
+
 <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/Aigeec/aras18/compare/v0.2.0...v0.2.1) (2018-09-04)
 

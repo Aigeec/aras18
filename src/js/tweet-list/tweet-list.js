@@ -4,10 +4,12 @@ import { Tweet } from '../tweet/tweet'
 import './tweet-list.scss'
 
 export const TweetList = ({ tweets }) => {
-  const _tweets = tweets.map((tweet) => {
+  const _tweets = tweets.map(tweet => {
     return <Tweet tweet={tweet} />
   })
   return (
-    <div className='tweetList__wrapper'><div>{_tweets}</div></div>
+    <div className='tweetList__wrapper'>
+      <div>{_tweets}</div>
+    </div>
   )
 }

@@ -1,8 +1,10 @@
 body {
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/aras-an-uachtarain.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('../img/aras-an-uachtarain.jpg');
   background-position: center;
+  box-sizing: border-box;
 }
 
 /* app layout */
@@ -48,7 +50,7 @@ body {
       margin-left: 20px;
     }
     .link {
-      display: block;      
+      display: block;
       &.active {
         border-bottom: 3px solid white;
       }
@@ -56,7 +58,7 @@ body {
       text-decoration: none;
     }
   }
-  >* {
+  > * {
     line-height: 40px;
   }
 }
@@ -64,7 +66,7 @@ body {
 @media only screen and (max-width: 600px) {
   .header {
     height: 30px;
-    .nav {      
+    .nav {
       background-color: transparent;
       line-height: 30px;
       margin-top: 0;
@@ -91,18 +93,14 @@ body {
   width: 100%;
   text-align: center;
   color: white;
-  padding-top: 20px;
+  margin-top: 20px;
 }
 
-/* Use in the page opening transtition */
-
-.fade {
-  transition: opacity 1s;
+.fade-enter {
   opacity: 0;
-  &.show {
+
+  &-active {
     opacity: 1;
-  }
-  &.hide {
-    opacity: 0;
+    transition: all 500ms ease-out;
   }
 }
