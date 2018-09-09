@@ -52,8 +52,17 @@ export default class App extends Component {
     }
   }
 
+  getRecentTweets () {
+    fetch('/api/recent-tweets')
+      .then(response => response.json())
+      .then(myJson => {
+        this.setState(Object.assign({}, this.state, { tweets: myJson }))
+      })
+  }
+
   componentDidMount () {
     this.connect()
+    this.getRecentTweets()
     this.setState(Object.assign({}, this.state, { show: true }))
   }
 
