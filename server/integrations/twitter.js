@@ -57,9 +57,23 @@ function persistTweet (enrichedTweet) {
   )
 }
 
+function persistUserMentions (enrichedTweet) {
+  if (enrichedTweet.tweet.entities.user_mentions.length > 0) {
+    return mongodb.connect.then(db =>
+      db
+        .collection('userMentions')
+        .insertMany(enrichedTweet.tweet.entities.user_mentions)
+        .then(() => enrichedTweet)
+    )
+  } else {
+    return Promise.resolve(enrichedTweet)
+  }
+}
+
 function handleTweet (tweet) {
   lastTweet = getTweetSentiment(tweet)
     .then(persistTweet)
+    .then(persistUserMentions)
     .then(transformTweet)
     .then(transformedTweet => {
       listeners.forEach(listener => listener(transformedTweet))
