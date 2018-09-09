@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/Aigeec/aras18/compare/v0.3.0...v0.5.0) (2018-09-09)
+
+
+### Bug Fixes
+
+* **server:** provide root path to fallback ([6862b42](https://github.com/Aigeec/aras18/commit/6862b42))
+* **top-ten-mentions:** lower font size ([2382fbc](https://github.com/Aigeec/aras18/commit/2382fbc))
+
+
+### Features
+
+* **twitter:** persist user mentions per tweet ([f4fdede](https://github.com/Aigeec/aras18/commit/f4fdede))
+
+
+
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/Aigeec/aras18/compare/v0.3.0...v0.4.0) (2018-09-09)
+
+
+### Bug Fixes
+
+* **server:** provide root path to fallback ([6862b42](https://github.com/Aigeec/aras18/commit/6862b42))
+
+
+### Features
+
+* **twitter:** persist user mentions per tweet ([f4fdede](https://github.com/Aigeec/aras18/commit/f4fdede))
+
+
+
 <a name="0.3.0"></a>
 # [0.3.0](https://github.com/Aigeec/aras18/compare/v0.2.1...v0.3.0) (2018-09-09)
 
