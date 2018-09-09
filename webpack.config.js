@@ -24,7 +24,7 @@ const config = {
   },
   entry: './src/entry.js',
   output: {
-    filename: '[contenthash].bundle.js',
+    filename: BUILD ? '[contenthash].bundle.js' : 'bundle.js',
     path: path.resolve(__dirname, './dist/public')
   },
   mode: BUILD ? 'production' : 'development',
@@ -35,7 +35,7 @@ const config = {
       loader: 'string-replace-loader',
       options: {
         search: 'WEB_SOCKET_URL',
-        replace: BUILD ? 'aras18.com' : 'localhost:6001'
+        replace: BUILD ? 'aras18.com' : 'localhost:6001/ws'
       }
     },
     {
@@ -80,7 +80,7 @@ const config = {
 
   plugins: [
     new ExtractCssChunks({
-      filename: '[contenthash].main.css',
+      filename: BUILD ? '[contenthash].main.css' : 'bundle.css',
       hot: !BUILD
     }),
     new HtmlWebpackPlugin({ template: './src/index.html' }),
@@ -90,7 +90,7 @@ const config = {
         path.join(__dirname, './src/js/**/*.js')
       ]),
       purifyOptions: {
-        whitelist: ['liquid*']
+        whitelist: ['*fade*']
       }
     })
   ],
@@ -123,9 +123,6 @@ if (!BUILD) {
   const proxy = require('http-proxy-middleware')
   const convert = require('koa-connect')
   const history = require('connect-history-api-fallback')
-  const Router = require('koa-router')
-
-  const router = new Router()
 
   const proxyOptions = {
     target: 'ws://localhost:6001',
@@ -133,13 +130,11 @@ if (!BUILD) {
     ws: true
   }
 
-  router.get('*', convert(proxy(proxyOptions)))
   module.exports.serve = {
     logLevel: 'debug',
     add: (app, middleware, options) => {
-      middleware.webpack().then(() => {
-        app.use(router.routes())
-      })
+      app.use(convert(proxy('/ws', proxyOptions)))
+      app.use(convert(proxy('/api', { target: 'http://localhost:6001' })))
       app.use(convert(history({})))
     }
   }
