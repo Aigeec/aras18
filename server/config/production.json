@@ -1,6 +1,6 @@
 {
   "twitter": {
-    "topics": ["áras18", "aras18", "aras2018"],
+    "topics": ["áras18", "aras18", "aras2018", "áras2018"],
     "follow": [
       "@md_higgins",
       "@CaseyPeterJ",
@@ -9,7 +9,8 @@
       "@seangallagher1",
       "@sarahlmulliganforPresident",
       "@gemmaod1",
-      "@SharkeyArtist"
+      "@SharkeyArtist",
+      "@LiadhNiRiadaMEP"
     ]
   },
   "mongo": {
